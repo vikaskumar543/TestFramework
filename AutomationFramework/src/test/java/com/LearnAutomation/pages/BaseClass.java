@@ -9,6 +9,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
 
 import com.LearnAutomation.utility.BrowserFactory;
 import com.LearnAutomation.utility.ConfigDataProvider;
@@ -41,10 +42,17 @@ public class BaseClass {
 		Reporter.log("Before Suite end >> Extend report setup completed", true);
 	}
 	
+	@Parameters({"browser", "URL"})
 	@BeforeClass
-	public void setup() {
+	public void setup(String browser, String URL) {
 		Reporter.log("Before Class Start >> Getting browsers and applicatin details", true);
-		driver = BrowserFactory.startApplictaion(driver, config.getBrowser(), config.getStagingURL());
+		
+//		Use this to take input from config file
+//		driver = BrowserFactory.startApplictaion(driver, config.getBrowser(), config.getStagingURL());
+		
+//		Use this to take input as a system parameter from pom.xml
+		driver = BrowserFactory.startApplictaion(driver, browser, URL);
+		
 		Reporter.log("Before Class end >> Browser launched and application up and running", true);
 	}
 	
